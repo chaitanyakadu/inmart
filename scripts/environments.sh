@@ -31,7 +31,7 @@ read -p "Postgres port (default: 5432): " POSTGRES_PORT
 POSTGRES_PORT=${POSTGRES_PORT:-5432}
 echo "POSTGRES_PORT=$POSTGRES_PORT" >> .env
 
-read -p "Postgres domain (default: localhost): " POSTGRES_HOST
+read -p "Postgres host (default: localhost): " POSTGRES_HOST
 POSTGRES_HOST=${POSTGRES_HOST:-localhost}
 echo "POSTGRES_HOST=$POSTGRES_HOST" >> .env
 
@@ -117,7 +117,7 @@ echo "" >> .env
 # Postgres URL
 # ============================
 echo "# Postgres" >> .env
-DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_DOMAIN}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public"
+DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public"
 echo "DATABASE_URL=\"$DATABASE_URL\"" >> .env
 
 echo ""
