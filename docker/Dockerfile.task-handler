@@ -1,0 +1,11 @@
+FROM node:24
+
+WORKDIR /inmart
+
+COPY ./package*.json .
+COPY . .
+RUN npm i
+RUN rm -rf ./apps/backend ./apps/frontend ./apps/socket ./apps/task-scheduler ./packages/postgres_db
+RUN npm run build
+
+CMD ["npm", "run", "dev"]

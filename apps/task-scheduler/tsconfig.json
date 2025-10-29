@@ -1,0 +1,9 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": ["./src/*.ts", "src/functions/algorithm.ts", "src/functions/triggerCall.ts"],
+  "exclude": ["node_modules"]
+}

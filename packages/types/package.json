@@ -1,0 +1,19 @@
+{
+  "name": "@repo/types",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "npx tsc -b"
+  },
+  "type": "module",
+  "exports": {
+    "./backend": "./dist/backend.js",
+    "./database": "./dist/database.js",
+    "./socket": "./dist/socket.js",
+    "./web": "./dist/web.js"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "@types/node": "^22.17.2",
+    "typescript": "^5.9.2"
+  }
+}

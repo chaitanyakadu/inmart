@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String  @id @default(uuid())
+  firstName     String?
+  lastName      String?
+  image         String
+  email         String  @unique
+  verifiedEmail Boolean @default(false)
+
+  subscription         String   @default("free")
+  subscriptionValidity DateTime @default(now())
+
+  contact   String?
+  cookie    String?
+  cookieExp String?
+
+  sessions    Session[]
+  Filter      Filter[]
+  UserHistory UserHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  sessionToken String   @id @default(uuid())
+  userId       String
+  expires      DateTime
+  device       String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Filter {
+  id    String @id @default(uuid())
+  title String @unique @default("default")
+
+  needWhatsappActive    Boolean @default(true)
+  pointWhatsappActive   Int     @default(20)
+  needMobVerified       Boolean @default(true)
+  pointMobVerified      Int     @default(20)
+  needEmailVerified     Boolean @default(true)
+  pointEmailVerified    Int     @default(20)
+  needBuyerReply        Boolean @default(true)
+  pointBuyerReply       Int     @default(20)
+  needBuyerRequirement  Boolean @default(true)
+  pointBuyerRequirement Int     @default(20)
+  needBuyerCalls        Boolean @default(true)
+  pointBuyerCalls       Int     @default(20)
+  needSec               Boolean @default(true)
+  pointSec              Int     @default(20)
+
+  minPointsForPurchase Int     @default(40)
+  allowMessaging       Boolean @default(true)
+  email                String
+  fullName             String
+  companyName          String
+
+  allowCountries     String[] @default([])
+  allowCategories    String[] @default([])
+  restrictMedicines  String[] @default([])
+  allowOnlyMedicines String[] @default([])
+
+  // todo - add following
+  // 1. trigger on reply
+  // 2. handle reply till what degree?
+  // 3. purchase using ai tranning
+  totalMessages  Int    @default(1)
+  aiInstructions String
+
+  triggerOn   String @default("Purchase and Message")
+  triggerType String @default("Premium")
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserHistory {
+  id     String @id @unique @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  customerName     String
+  customerCountry  String
+  medicineName     String
+  medicineCategory String
+  details          String
+  status           String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,16 @@
+FROM node:24
+
+WORKDIR /inmart
+
+COPY ./package*.json .
+COPY . .
+RUN npm i
+RUN rm -rf ./apps/task-handler
+RUN npm run build
+
+EXPOSE 3000 4000 8080 8081 8082
+
+CMD ["apt", "update"]
+CMD ["apt", "upgrade", "-y"]
+CMD ["apt", "install", "netcat-traditional", "-y"]
+CMD ["npm", "run", "dev:production"]

@@ -1,0 +1,111 @@
+services:
+  postgres_db:
+    container_name: inmart_postgres
+    image: postgres:latest
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - inmart_postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - net_default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis_db:
+    container_name: inmart_redis
+    image: redis:latest
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - inmart_redis:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - net_default
+
+  prometheus_logging:
+    container_name: inmart_prometheus
+    image: prom/prometheus:latest
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - inmart_prom:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - net_default
+
+  # grafana_monitoring:
+  #   container_name: inmart_grafana
+  #   image: grafana/grafana:latest
+  #   restart: always
+  #   volumes:
+  #     - inmart_db:/var/lib/grafana
+  #   ports:
+  #     - "3000:3000"
+
+  task_handler:
+    container_name: inmart_task_handler
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.task-handler
+    networks:
+      - net_default
+
+  microservices:
+    container_name: inmart_services
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.services
+    ports:
+      - "4000:4000" # backend + prometheus backend
+      - "3000:3000" # frontend
+      - "8080:8080" # socket
+      - "8081:8081" # prometheus socket
+      - "8082:8082" # prometheus task scheduler
+    networks:
+      - net_default
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+      redis_db:
+        condition: service_started
+    
+volumes:
+  inmart_postgres:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/postgres
+
+  inmart_redis:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/redis
+
+  inmart_prom:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/prom
+
+networks:
+  net_default:
+    driver: bridge
