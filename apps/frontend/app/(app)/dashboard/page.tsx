@@ -30,7 +30,7 @@ export default function Page() {
             />
           ) : (
             // @ts-ignore
-            <CustomTable userHistory={userHistory} />
+            <CustomTable userHistory={[...userHistory].reverse()} />
           )}
         </div>
       </div>

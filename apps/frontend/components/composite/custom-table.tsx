@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import {
   Table,
@@ -36,17 +36,11 @@ export default function CustomTable({
 }: {
   userHistory: Array<UserHistory>;
 }) {
-  const [userHistoryArr, setUserHistoryArr] =
-    useState<Array<UserHistory>>(userHistory);
   const PAGE_SIZE = 10;
-
-  useEffect(() => {
-    setUserHistoryArr([...userHistory].reverse());
-  }, [userHistory]);
 
   const [page, setPage] = useState(1);
 
-  const total = userHistoryArr?.length ?? 0;
+  const total = userHistory?.length ?? 0;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   // Clamp page if data changes
   const currentPage = Math.min(page, totalPages);
@@ -55,13 +49,13 @@ export default function CustomTable({
     const startIdx = (currentPage - 1) * PAGE_SIZE;
     const endIdx = startIdx + PAGE_SIZE;
     return {
-      rows: (userHistoryArr ?? []).slice(startIdx, endIdx),
+      rows: (userHistory ?? []).slice(startIdx, endIdx),
       start: startIdx + 1,
       end: Math.min(endIdx, total),
     };
-  }, [currentPage, userHistoryArr, total]);
+  }, [currentPage, userHistory, total]);
 
-  if (!userHistoryArr || userHistoryArr.length === 0) {
+  if (!userHistory || userHistory.length === 0) {
     return (
       <div className="mx-4 lg:mx-6 flex items-center justify-center rounded-lg border border-zinc-200 bg-white p-10 text-sm text-zinc-500 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400">
         No history yet.

@@ -1,9 +1,17 @@
 // components/Stopwatch.tsx
 "use client";
 
-export default function LeadsCount({ count }: { count: number }) {
+export default function LeadsCount({
+  count,
+  state,
+}: {
+  count: number;
+  state: any;
+}) {
   return (
-    <div className="w-full max-w-md mx-auto p-5 rounded-2xl bg-gradient-to-r from-green-600/95 to-emerald-500/95 shadow-xl backdrop-blur-sm border border-white/10">
+    <div
+      className={`w-full max-w-md mx-auto p-5 rounded-2xl ${state.metaData.maxLeads.value > count ? "bg-gradient-to-r from-green-600/95 to-emerald-500/95" : "bg-neutral-200"} shadow-xl backdrop-blur-sm border border-white/10`}
+    >
       <div className="flex flex-col items-center gap-2">
         {/* stopwatch / uptime */}
         <div className="text-5xl md:text-6xl font-mono font-extrabold text-white drop-shadow-md tracking-wider">

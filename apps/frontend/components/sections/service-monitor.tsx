@@ -18,10 +18,7 @@ import LeadsCount from "../composite/leads-counter";
 import CustomTable from "../composite/custom-table";
 import { usePathname } from "next/navigation";
 
-export default function ServiceMonitor({
-  setServiceRunning,
-  state
-}: any) {
+export default function ServiceMonitor({ setServiceRunning, state }: any) {
   const [messages, socket, status] = useSocket();
   const pathname = usePathname();
   const oldPathname = pathname;
@@ -115,15 +112,15 @@ export default function ServiceMonitor({
 
         <div className="grid grid-cols-2 gap-6">
           {/* @ts-ignore */}
-          <Stopwatch count={messages.length} state={state}/>
+          <Stopwatch count={messages.length} state={state} />
           {/* @ts-ignore */}
-          <LeadsCount count={messages.length} />
+          <LeadsCount count={messages.length} state={state} />
         </div>
 
         <hr className="border-t border-zinc-100 dark:border-zinc-800" />
 
         {/* @ts-ignore */}
-        <CustomTable userHistory={messages} />
+        <CustomTable userHistory={[...messages].reverse()} />
       </CardContent>
     </Card>
   );
