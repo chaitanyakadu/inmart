@@ -17,7 +17,7 @@ export function getPurchaseableList(
       isExpectedMedicine(element, filterData.allowOnlyMedicines)
     ) {
       const additionalDetails = element.ETO_OFR_ADDITIONAL_DETAILS[0] || null;
-      userHistory.details += "Reasons of purchase:";
+      userHistory.details += "The reasons for purchase:";
       if (
         filterData.needWhatsappActive &&
         additionalDetails?.is_whatsapp_active
