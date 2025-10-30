@@ -97,7 +97,7 @@ In future versions, Inmart aims to include:
 Below are the steps to install and run Inmart using Docker. No technical background is needed — simply follow these instructions carefully.
 
 ### Step 1: Install Docker
-
+```
 You need to install Docker on your system before running Inmart.
 
 - **Windows:**  
@@ -106,17 +106,17 @@ You need to install Docker on your system before running Inmart.
   [Install Docker for Mac](https://docs.docker.com/desktop/setup/install/mac-install/)
 - **Linux:**  
   [Install Docker for Linux](https://docs.docker.com/desktop/setup/install/linux/)
-
+```
 ### Step 2: Clone the Codebase
-
+```
 Open a terminal or command prompt and run the following command:
 
 git clone https://github.com/chaitanyakadu/inmart.git
 
 This will download the entire Inmart project onto your computer.
-
+```
 ### Step 3: Run Setup Script
-
+```
 Before starting Inmart, you need to provide your API credentials for Google, MailJet, and Gemini.
 
 1. **Get Google Credentials:**  
@@ -135,17 +135,17 @@ Once you have them ready, run the following commands:
 ./scripts/setup.sh
 
 These will configure the environment for your Inmart installation.
-
+```
 ### Step 4: Start Inmart Using Docker
-
+```
 To start the Inmart system, run:
 
 docker compose up -d
 
 This will download all necessary containers and start the automation software.
-
+```
 ### Step 5: Stopping and Managing Inmart
-
+```
 You can manage Inmart using the following commands:
 
 #### To start Inmart
@@ -161,7 +161,7 @@ docker compose stop
 docker compose down
 
 When you are done using Inmart, you can safely stop it with `docker compose down`.
-
+```
 ---
 
 ## Summary
