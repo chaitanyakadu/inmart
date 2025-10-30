@@ -1,13 +1,6 @@
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatBotParams } from "@repo/types/backend";
 import { FilterData } from "@repo/types/database";
-import { GoogleGenAI } from "@google/genai";
-
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-
-if (!GEMINI_API_KEY) {
-  throw Error("The mailjet private and public key are missing.");
-}
 
 export default async function chatBot(
   params: ChatBotParams,

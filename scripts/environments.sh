@@ -107,8 +107,12 @@ echo "MJ_APIKEY_PUBLIC=$MJ_APIKEY_PUBLIC" >> .env
 read -p "Mailjet API Key Private: " MJ_APIKEY_PRIVATE
 echo "MJ_APIKEY_PRIVATE=$MJ_APIKEY_PRIVATE" >> .env
 
-read -p "Gemini API Key: " GEMINI_API_KEY
-echo "GEMINI_API_KEY=$GEMINI_API_KEY" >> .env
+read -p "GOOGLE API Key: " GOOGLE_API_KEY
+echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> .env
+
+read -p "Cron Time (default: * * * * * *): " CRON_TIME
+CRON_TIME=${CRON_TIME:-"* * * * * *"}
+echo "CRON_TIME=$CRON_TIME" >> .env
 
 echo "" >> .env
 
