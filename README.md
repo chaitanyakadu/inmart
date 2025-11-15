@@ -201,6 +201,7 @@ docker compose down
 ```
 
 When you are done using Inmart, you can safely stop it with `docker compose down`.
+
 ---
 
 ## Summary
