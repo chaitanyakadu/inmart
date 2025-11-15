@@ -1,1 +1,1 @@
-{"root":["./src/ai.ts","./src/service.ts","./src/functions/algorithm.ts","./src/functions/triggerCall.ts"],"version":"5.9.2"}
+{"root":["./src/service.ts","./src/functions/algorithm.ts","./src/functions/triggerCall.ts"],"version":"5.9.2"}
