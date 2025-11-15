@@ -119,10 +119,10 @@ while (true) {
         });
 
         userHistory.customerName =
-          contactList.data.result[0].contacts_name || "";
+          contactList.data?.result[0]?.contacts_name || "-";
         userHistory.customerCountry =
-          contactList.data.result[0].country_name || "";
-        const customerGlusrId = contactList.data.result[0].contacts_glid || "";
+          contactList.data?.result[0]?.country_name || "-";
+        const customerGlusrId = contactList.data?.result[0]?.contacts_glid || "";
 
         // console.log(`${new Date()}: Handleing message`);
         const sendMessageAndTrigger = await handleMessages(
